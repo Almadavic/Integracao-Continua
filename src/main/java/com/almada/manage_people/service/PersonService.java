@@ -26,7 +26,7 @@ public class PersonService {
 
     public PersonResponseDTO findById(Long id) {
         return PersonMapper.toDTO(
-                RecoverById(id)
+                recoverById(id)
         );
     }
 
@@ -41,7 +41,7 @@ public class PersonService {
 
     public PersonResponseDTO update(Long id, PersonUpdateDTO personUpdateDTO) {
 
-        Person person = RecoverById(id);
+        Person person = recoverById(id);
 
         PersonMapper.update(person, personUpdateDTO);
 
@@ -51,10 +51,10 @@ public class PersonService {
     }
 
     public void delete(Long id) {
-        repository.delete(RecoverById(id));
+        repository.delete(recoverById(id));
     }
 
-    private Person RecoverById(Long id) {
+    private Person recoverById(Long id) {
         return repository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Person id: " + id + " not found"));
     }
