@@ -33,7 +33,6 @@ jobs:
       - name: Push Docker image
         run: docker push ${{ secrets.DOCKER_HUB_USERNAME }}/test:${{ github.sha }}
 
-
       - name: Cache SonarQube packages
         uses: actions/cache@v3
         with:
