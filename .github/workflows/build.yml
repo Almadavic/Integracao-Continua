@@ -28,7 +28,7 @@ jobs:
         run: mkdir ./jar-upload
 
       - name: Copiando JAR gerado para a pasta jar-upload
-        run: cp .target/*.jar ./jar-upload
+        run: cp ./target/*.jar ./jar-upload
 
       - name: Definir nome do arquivo JAR sem extensão
         id: jar_name
