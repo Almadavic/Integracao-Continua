@@ -12,6 +12,7 @@ class ManagePeopleApplicationTests {
 
 		Assertions.assertTrue(true);
 
+
 	}
 
 }
