@@ -49,7 +49,7 @@ jobs:
             -Dsonar.organization=almadavic \
             -Dsonar.host.url=https://sonarcloud.io \
             -Dsonar.login=${{ secrets.SONAR_TOKEN }}
-          
+
 
       - name: Send Notification Email
         uses: dawidd6/action-send-mail@v3
@@ -64,3 +64,19 @@ jobs:
             Confira os detalhes no [GitHub Actions](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}).
           to: ${{ secrets.RECIPIENT_EMAIL }}
           from: ${{ secrets.EMAIL_USERNAME }}
+
+
+      - name: Deploy Docker image to EC2
+        env:
+          HOST: ${{ secrets.EC2_HOST }}
+          USERNAME: ${{ secrets.EC2_USER }}
+          KEY: ${{ secrets.EC2_SSH_KEY }}
+          DOCKER_HUB_USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
+          IMAGE_TAG: ${{ github.sha }}
+        run: |
+          ssh -i $KEY $USERNAME@$HOST << EOF
+            docker pull $DOCKER_HUB_USERNAME/test:$IMAGE_TAG
+            docker stop test_container || true
+            docker rm test_container || true
+            docker run -d --name test_container -p 80:80 $DOCKER_HUB_USERNAME/test:$IMAGE_TAG
+          EOF    
