@@ -77,4 +77,5 @@ jobs:
           sudo docker pull $DOCKER_HUB_USERNAME/test:$IMAGE_TAG
           sudo docker stop test_container || true
           sudo docker rm test_container || true
-          sudo docker run -d --name test_container -p 80:80 $DOCKER_HUB_USERNAME/test:$IMAGE_TAG EOF   
+          sudo docker run -d --name test_container -p 80:80 $DOCKER_HUB_USERNAME/test:$IMAGE_TAG
+          EOF   
