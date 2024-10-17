@@ -66,6 +66,7 @@ jobs:
 
 
       - name: Deploy Docker image to EC2
+        uses: appleboy/ssh-action@master
         env:
           HOST: ${{ secrets.EC2_HOST }}
           USERNAME: ${{ secrets.EC2_USER }}
@@ -77,5 +78,4 @@ jobs:
             docker pull $DOCKER_HUB_USERNAME/test:$IMAGE_TAG
             docker stop test_container || true
             docker rm test_container || true
-            docker run -d --name test_container -p 80:80 $DOCKER_HUB_USERNAME/test:$IMAGE_TAG
-          EOF    
+            docker run -d --name test_container -p 80:80 $DOCKER_HUB_USERNAME/test:$IMAGE_TAG EOF    
