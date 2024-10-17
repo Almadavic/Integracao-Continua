@@ -39,6 +39,7 @@ jobs:
           path: ~/.sonar/cache
           key: ${{ runner.os }}-sonar
 
+
       - name: Run SonarQube Scan
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
@@ -48,3 +49,18 @@ jobs:
             -Dsonar.organization=almadavic \
             -Dsonar.host.url=https://sonarcloud.io \
             -Dsonar.login=${{ secrets.SONAR_TOKEN }}
+          
+
+      - name: Send Notification Email
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.gmail.com
+          server_port: 587
+          username: ${{ secrets.EMAIL_USERNAME }}
+          password: ${{ secrets.EMAIL_PASSWORD }}
+          subject: 'Build Status: ${{ job.status }}'
+          body: |
+            O build foi concluído com o status: ${{ job.status }}.
+            Confira os detalhes no [GitHub Actions](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}).
+          to: ${{ secrets.RECIPIENT_EMAIL }}
+          from: ${{ secrets.EMAIL_USERNAME }}

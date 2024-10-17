@@ -18,7 +18,7 @@ jobs:
           cache: maven
 
       - name: Build ant test with Maven
-        run: mvn --batch-mode package
+        run: mvn --batch-mode clean package -DskipTests
 
       - name: Cache SonarQube packages
         uses: actions/cache@v3
