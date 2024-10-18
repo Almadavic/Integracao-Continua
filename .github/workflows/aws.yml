@@ -27,5 +27,3 @@ jobs:
           username: ubuntu
           key: ${{ secrets.EC2_SSH_KEY }}
           port: 22
-          source: "./target/manage-people-0.0.1-SNAPSHOT.jar"
-          target: "/home/ubuntu"
