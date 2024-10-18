@@ -65,17 +65,12 @@ jobs:
           from: ${{ secrets.EMAIL_USERNAME }}
 
 
-      - name: Deploy Docker image to EC2
+      - name: SSH into EC2
         env:
           HOST: ec2-54-242-236-21.compute-1.amazonaws.com
           USERNAME: ubuntu
           KEY: ${{ secrets.EC2_SSH_KEY }}
-          DOCKER_HUB_USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
-          IMAGE_TAG: ${{ github.sha }}
         run: |
           ssh -o StrictHostKeyChecking=no -i $KEY $USERNAME@$HOST << EOF
-            sudo docker pull $DOCKER_HUB_USERNAME/test:$IMAGE_TAG
-            sudo docker stop test_container || true
-            sudo docker rm test_container || true
-            sudo docker run -d --name test_container -p 80:80 $DOCKER_HUB_USERNAME/test:$IMAGE_TAG
-          EOF   
+           echo "Connected to EC2 instance."
+          EOF
