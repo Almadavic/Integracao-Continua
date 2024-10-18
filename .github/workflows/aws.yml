@@ -1,4 +1,4 @@
-﻿name: Java CI With Maven
+﻿name:  AWS
 
 on:
   workflow_dispatch:
