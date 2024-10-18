@@ -3,6 +3,8 @@ package com.almada.manage_people.controller;
 import com.almada.manage_people.dto.request.register.PersonRegisterDTO;
 import com.almada.manage_people.dto.request.update.PersonUpdateDTO;
 import com.almada.manage_people.dto.response.PersonResponseDTO;
+import com.almada.manage_people.entity.Person;
+import com.almada.manage_people.enumerated.MaritalStatus;
 import com.almada.manage_people.service.PersonService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -52,6 +54,20 @@ public class PersonController {
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         personService.delete(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping(value = "/figueiredo")
+    public ResponseEntity<PersonResponseDTO> buscaFigueiredo() {
+        Person person = Person.builder()
+                .name("Figueiredo")
+                .email("fig@gmail.com")
+                .age(21)
+                .maritalStatus(MaritalStatus.SINGLE)
+                .build();
+
+        PersonResponseDTO personResponseDTO = new PersonResponseDTO(person);
+
+        return ResponseEntity.ok(personResponseDTO);
     }
 
 }
