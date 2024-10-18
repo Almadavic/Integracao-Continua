@@ -55,9 +55,15 @@ jobs:
       - name: Deploy Docker image to EC2
         uses: appleboy/ssh-action@master
         with:
-          host: ec2-54-242-236-21.compute-1.amazonaws.com
-          username: ubuntu
+          host: ec2-3-85-215-150.compute-1.amazonaws.com
+          username: ec2-user
           key: ${{ secrets.EC2_SSH_KEY }}
+          script: |
+            echo "${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}" | docker login -u "${{ secrets.DOCKER_HUB_USERNAME }}" --password-stdin
+            docker pull ${{ secrets.DOCKER_HUB_USERNAME }}/test:${{ github.sha }}
+            docker ps -q --filter "ancestor=${{ secrets.DOCKER_HUB_USERNAME }}/test:${{ github.sha }}" | xargs -r docker stop
+            docker ps -aq --filter "ancestor=${{ secrets.DOCKER_HUB_USERNAME }}/test:${{ github.sha }}" | xargs -r docker rm
+            docker run -d -p 80:80 --name manage-people ${{ secrets.DOCKER_HUB_USERNAME }}/test:${{ github.sha }}
             
 
       - name: Send Notification Email
