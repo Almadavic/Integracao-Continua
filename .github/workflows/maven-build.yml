@@ -76,4 +76,4 @@ jobs:
             docker pull ${{ secrets.DOCKER_HUB_USERNAME }}/test:${{ github.sha }}
             docker ps -q --filter "ancestor=${{ secrets.DOCKER_HUB_USERNAME }}/test:${{ github.sha }}" | xargs -r docker stop
             docker ps -aq --filter "ancestor=${{ secrets.DOCKER_HUB_USERNAME }}/test:${{ github.sha }}" | xargs -r docker rm
-            docker run -d -p 8080:8080 --name biodata-app ${{ secrets.DOCKER_HUB_USERNAME }}/test:${{ github.sha }}
+            docker run -d -p 80:80 --name biodata-app ${{ secrets.DOCKER_HUB_USERNAME }}/test:${{ github.sha }}
