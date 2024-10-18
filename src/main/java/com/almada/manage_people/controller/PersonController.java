@@ -29,11 +29,12 @@ public class PersonController {
 
     @GetMapping(value = "/{id}")
     public ResponseEntity<PersonResponseDTO> findPage(@PathVariable Long id) {
-        return ResponseEntity.ok(personService.findById(id));
+        PersonResponseDTO person = personService.findById(id);
+        return ResponseEntity.ok(person);
     }
 
     @PostMapping
-    public ResponseEntity<PersonResponseDTO> save(@RequestBody @Valid PersonRegisterDTO personRegisterDTO,
+    public ResponseEntity<PersonResponseDTO> Save(@RequestBody @Valid PersonRegisterDTO personRegisterDTO,
                                                   UriComponentsBuilder uriBuilder) {
 
         PersonResponseDTO personResponseDTO = personService.save(personRegisterDTO);

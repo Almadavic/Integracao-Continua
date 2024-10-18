@@ -54,8 +54,8 @@ jobs:
           script: |
             echo "${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}" | docker login -u "${{ secrets.DOCKER_HUB_USERNAME }}" --password-stdin
             docker pull ${{ secrets.DOCKER_HUB_USERNAME }}/test:${{ github.sha }}
-            docker ps -q --filter "ancestor=${{ secrets.DOCKER_HUB_USERNAME }}/test:${{ github.sha }}" | xargs -r docker stop
-            docker ps -aq --filter "ancestor=${{ secrets.DOCKER_HUB_USERNAME }}/test:${{ github.sha }}" | xargs -r docker rm
+            docker stop manage-people || true
+            docker rm manage-people || true
             docker run -d -p 80:80 --name manage-people ${{ secrets.DOCKER_HUB_USERNAME }}/test:${{ github.sha }}
             
 
