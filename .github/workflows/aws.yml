@@ -32,14 +32,7 @@ jobs:
       - name: Push Docker image
         run: docker push ${{ secrets.DOCKER_HUB_USERNAME }}/test:${{ github.sha }}
 
-      - name: Cache SonarQube packages
-        uses: actions/cache@v3
-        with:
-          path: ~/.sonar/cache
-          key: ${{ runner.os }}-sonar
-
       - name: SSH to AWS Instance
-        uses: appleboy/scp-action@master
         with:
           host: ec2-54-242-236-21.compute-1.amazonaws.com
           username: ec2-user
