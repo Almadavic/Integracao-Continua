@@ -37,8 +37,6 @@ public class Person {
     @CreationTimestamp
     private LocalDate created;
 
-    private LocalDate dateOfBirth;
-
     @Builder
     public Person(String name, String email, Integer age, MaritalStatus maritalStatus) {
         this.name = name;
