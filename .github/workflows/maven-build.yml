@@ -1,7 +1,9 @@
 ﻿name: Java CI With Maven
 
 on:
-  workflow_dispatch:
+  push:
+    branches:
+      - main
 
 jobs:
   build:
@@ -76,4 +78,4 @@ jobs:
             docker pull ${{ secrets.DOCKER_HUB_USERNAME }}/test:${{ github.sha }}
             docker ps -q --filter "ancestor=${{ secrets.DOCKER_HUB_USERNAME }}/test:${{ github.sha }}" | xargs -r docker stop
             docker ps -aq --filter "ancestor=${{ secrets.DOCKER_HUB_USERNAME }}/test:${{ github.sha }}" | xargs -r docker rm
-            docker run -d -p 80:80 --name adaddadad ${{ secrets.DOCKER_HUB_USERNAME }}/test:${{ github.sha }}
+            docker run -d -p 80:80 --name manage-people ${{ secrets.DOCKER_HUB_USERNAME }}/test:${{ github.sha }}
