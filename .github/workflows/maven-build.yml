@@ -67,8 +67,8 @@ jobs:
 
       - name: Deploy Docker image to EC2
         env:
-          HOST: ${{ secrets.EC2_HOST }}
-          USERNAME: ${{ secrets.EC2_USER }}
+          HOST: ec2-54-242-236-21.compute-1.amazonaws.com
+          USERNAME: ubuntu
           KEY: ${{ secrets.EC2_SSH_KEY }}
           DOCKER_HUB_USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
           IMAGE_TAG: ${{ github.sha }}
