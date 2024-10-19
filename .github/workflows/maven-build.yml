@@ -1,4 +1,4 @@
-﻿name: Java CI With Maven
+﻿name: Ci / CD Completo
 
 on:
   workflow_dispatch:
