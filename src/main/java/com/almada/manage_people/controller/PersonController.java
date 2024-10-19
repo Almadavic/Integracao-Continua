@@ -28,7 +28,7 @@ public class PersonController {
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<PersonResponseDTO> findPage(@PathVariable Long id) {
+    public ResponseEntity<PersonResponseDTO> findById(@PathVariable Long id) {
         return ResponseEntity.ok(personService.findById(id));
     }
 
